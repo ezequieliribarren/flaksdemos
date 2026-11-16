@@ -1,0 +1,544 @@
+/* ==========================================================================
+   FLAKS — Muestrario de Landings
+   Home / dashboard. Fondo violeta oscuro real de flaks.com.ar (flaks-dark →
+   flaks-dark-secondary) con glow en flaks-violet + acento spring green.
+   ========================================================================== */
+
+:root {
+  --bg: #110e1e;
+  --bg-alt: #17122a;
+  --surface: #18132b;
+  --surface-hover: #1e1836;
+  --border: #2a2340;
+  --text: #eef5f1;
+  --text-muted: #a79fc4;
+  --accent: #00ff7f;
+  --accent-dim: #00cc66;
+  --accent-soft: rgba(0, 255, 127, 0.12);
+  --violet-dark: #5928eb;
+  --violet-light: #8b6fff;
+
+  --font-head: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --tint-muebleria: #c1662f;
+  --tint-seguros: #4d8fdb;
+  --tint-inmobiliaria: #c9a24a;
+  --tint-coaching: #ff6f59;
+  --tint-servicios: #6c63ff;
+  --tint-fotografo: #d4ff3f;
+  --tint-eventos: #cba25a;
+  --tint-viajes: #0f9b8e;
+  --tint-psicologia: #c9a0a0;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Fondo tipo "mesh gradient" con los violetas reales de FLAKS + acento verde */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 12% -10%, rgba(89, 40, 235, 0.35), transparent 45%),
+    radial-gradient(circle at 88% 8%, rgba(0, 255, 127, 0.08), transparent 40%),
+    radial-gradient(circle at 50% 115%, rgba(139, 111, 255, 0.22), transparent 55%);
+}
+
+/* ---------- Header ---------- */
+/* Violeta típico de FLAKS: gradiente flaks-dark → flaks-dark-secondary,
+   tal como aparece en flaks.com.ar detrás del isotipo verde. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(135deg, #110e1e 0%, #211545 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: #25d366;
+  border: 1px solid #25d366;
+  padding: 8px 16px;
+  border-radius: 100px;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.header-cta svg { flex-shrink: 0; }
+.header-cta:hover {
+  transform: translateY(-1px);
+  background: #1fb959;
+  border-color: #1fb959;
+  box-shadow: 0 10px 22px -10px rgba(37, 211, 102, 0.65);
+}
+
+/* ---------- Hero ---------- */
+.hero-showcase {
+  position: relative;
+  z-index: 1;
+  padding: 64px 0 40px;
+}
+
+.hero-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .hero-showcase-grid { grid-template-columns: 1.1fr 1fr; gap: 30px; }
+}
+
+.typewriter-heading {
+  font-family: var(--font-head);
+  font-size: clamp(2.1rem, 4.8vw, 3.6rem);
+  line-height: 1.15;
+  margin: 0;
+  max-width: 15ch;
+  min-height: 2.4em;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 5px;
+  height: 0.82em;
+  margin-left: 4px;
+  background: var(--accent);
+  vertical-align: -0.06em;
+  animation: typewriter-blink 0.7s ease-in-out infinite;
+}
+
+@keyframes typewriter-blink {
+  50% { opacity: 0; }
+}
+
+/* Bullets flotantes tipo flaks.com.ar/landing-page — solo desktop */
+.hero-bullets {
+  display: none;
+  position: relative;
+  height: 260px;
+}
+
+@media (min-width: 1024px) {
+  .hero-bullets { display: block; }
+}
+
+.hero-bullet {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.86rem;
+  border-radius: 100px;
+  padding: 10px 16px;
+  white-space: nowrap;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  animation: heroBubble 10s ease-in-out infinite;
+}
+
+.hero-bullet-dot,
+.hero-bullet-static .hero-bullet-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+@keyframes heroBubble {
+  0%, 6%   { opacity: 0; transform: translateY(10px) scale(0.94); }
+  16%, 78% { opacity: 1; transform: translateY(0) scale(1); }
+  92%, 100% { opacity: 0; transform: translateY(-10px) scale(0.94); }
+}
+
+/* Mismos bullets, en flujo normal, para mobile/tablet */
+.hero-bullets-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+@media (min-width: 1024px) {
+  .hero-bullets-mobile { display: none; }
+}
+
+.hero-bullet-static {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 100px;
+  padding: 9px 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Filtros ---------- */
+.filter-section {
+  position: relative;
+  z-index: 1;
+  padding: 4px 0 32px;
+}
+
+/* En desktop, tags principales y sub-tags conviven en la misma fila */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.filter-tags,
+.filter-subtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-subtags {
+  gap: 8px;
+  padding-left: 14px;
+  border-left: 1px solid var(--border);
+  animation: subtagsIn 0.3s ease both;
+}
+
+.filter-subtags[hidden] { display: none; }
+
+@keyframes subtagsIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 640px) {
+  .filter-subtags {
+    padding-left: 0;
+    border-left: none;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px dashed var(--border);
+    width: 100%;
+  }
+}
+
+.tag {
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 9px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.tag:hover { border-color: var(--accent); color: var(--text); }
+
+.tag.is-active {
+  background: var(--accent);
+  color: #061109;
+  border-color: var(--accent);
+}
+
+.tag-sub {
+  font-size: 0.8rem;
+  padding: 7px 15px;
+  background: transparent;
+}
+
+.tag-sub.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+/* ---------- Cards grid ---------- */
+.grid-section {
+  position: relative;
+  z-index: 1;
+  padding: 8px 0 80px;
+}
+
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 30px 0 10px;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 320px;
+  min-width: 260px;
+  max-width: 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+  --tint: var(--accent);
+}
+
+.demo-card.is-visible {
+  animation: cardIn 0.5s ease forwards;
+}
+
+/* Estado final tras la animación de entrada: sin "animation" activa para que
+   el hover (translateY con transition) vuelva a tener el control del transform. */
+.demo-card.is-shown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.demo-card.is-hidden { display: none; }
+
+.demo-card[data-tint="muebleria"]    { --tint: var(--tint-muebleria); }
+.demo-card[data-tint="seguros"]      { --tint: var(--tint-seguros); }
+.demo-card[data-tint="inmobiliaria"] { --tint: var(--tint-inmobiliaria); }
+.demo-card[data-tint="coaching"]     { --tint: var(--tint-coaching); }
+.demo-card[data-tint="servicios"]    { --tint: var(--tint-servicios); }
+.demo-card[data-tint="fotografo"]    { --tint: var(--tint-fotografo); }
+.demo-card[data-tint="eventos"]      { --tint: var(--tint-eventos); }
+.demo-card[data-tint="viajes"]       { --tint: var(--tint-viajes); }
+.demo-card[data-tint="psicologia"]   { --tint: var(--tint-psicologia); }
+
+.demo-card:hover,
+.demo-card.is-shown:hover {
+  transform: translateY(-6px);
+  border-color: var(--tint);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--tint) inset;
+}
+
+.card-media {
+  height: 170px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,14,12,0) 40%, rgba(10,14,12,0.9) 100%),
+              linear-gradient(0deg, var(--tint) 0%, transparent 100%);
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  transition: opacity 0.35s ease;
+}
+
+.demo-card:hover .card-media::after { opacity: 0.35; }
+
+.card-body { padding: 20px 22px 6px; flex: 1; }
+
+.card-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tint);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.card-body h2 {
+  font-family: var(--font-head);
+  font-size: 1.28rem;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.card-body p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.card-cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 22px 22px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.demo-card:hover .card-cta {
+  color: var(--tint);
+  gap: 10px;
+}
+
+/* ---------- CTA section ---------- */
+.cta-section {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 56px 0;
+}
+
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.cta-inner h2 {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  margin: 0 0 8px;
+}
+
+.cta-inner p {
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 50ch;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #061109;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: 100px;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 0 0 rgba(0,255,127,0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -8px rgba(0,255,127,0.55);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  height: 22px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.footer-inner p {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.footer-link {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .hero-showcase { padding: 56px 0 40px; }
+  .cta-inner { flex-direction: column; align-items: flex-start; }
+  .btn-primary { width: 100%; text-align: center; }
+}

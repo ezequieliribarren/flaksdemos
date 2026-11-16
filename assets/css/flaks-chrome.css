@@ -1,0 +1,354 @@
+/* ==========================================================================
+   FLAKS Chrome — UI compartida que envuelve cada landing demo: la barra
+   superior (logo + dropdown de rubros + WhatsApp) y el botón flotante
+   "Volver a todas las demos". A propósito usa SIEMPRE los mismos colores de
+   marca FLAKS, sin tomar nada de la paleta de la landing que envuelve — así
+   se lee claramente como "de FLAKS", separado de la identidad visual de cada
+   demo. Pensado para cargarse DESPUÉS del style.css propio de cada landing.
+   ========================================================================== */
+
+:root {
+  --flaks-green: #00ff7f;
+  --flaks-green-dark: #00cc66;
+  --flaks-ink: #0a0e0c;
+  --flaks-muted: #5c6b64;
+  --flaks-line: #e7ece9;
+  --flaks-bg: #ffffff;
+  --flaks-violet: #5928eb;
+}
+
+/* ---------- Formularios de demostración: no son completables a propósito ---------- */
+/* Ninguna landing "vende" nada por su cuenta — todo el contacto real pasa por
+   FLAKS (WhatsApp flotante + barra superior). Los forms de cada demo quedan
+   solo para mostrar cómo se vería la sección, nunca para poder enviarse. */
+.flaks-form-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--flaks-violet);
+  background: rgba(89, 40, 235, 0.08);
+  border: 1px solid rgba(89, 40, 235, 0.25);
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+
+.form input:disabled,
+.form textarea:disabled,
+.form select:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.form button:disabled:hover { transform: none !important; }
+
+/* ---------- Callout de contacto real (dentro de cada sección "contacto") ---------- */
+/* Siempre blanco + violeta + verde, para que se lea claro que ESTO sí es real
+   y va a FLAKS — a diferencia del formulario de arriba, que es solo vista. */
+.flaks-real-contact {
+  margin-top: 22px;
+  background: #ffffff;
+  border: 1.5px solid var(--flaks-violet);
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.flaks-real-contact-text { flex: 1; min-width: 200px; }
+.flaks-real-contact-text strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--flaks-ink);
+  margin-bottom: 3px;
+}
+.flaks-real-contact-text span {
+  font-size: 0.8rem;
+  color: var(--flaks-muted);
+}
+.flaks-real-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background: #25d366;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 12px 20px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.flaks-real-contact-btn:hover { transform: translateY(-2px); background: #1fb959; }
+.flaks-real-contact-btn svg { flex-shrink: 0; }
+
+@media (max-width: 480px) {
+  .flaks-real-contact { flex-direction: column; align-items: stretch; text-align: center; }
+  .flaks-real-contact-btn { justify-content: center; }
+}
+
+/* ---------- Barra superior ---------- */
+.flaks-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  /* Violeta típico de FLAKS: gradiente flaks-dark → flaks-dark-secondary. */
+  background: linear-gradient(135deg, #110e1e 0%, #211545 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 20px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.flaks-bar-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.flaks-bar-logo { height: 20px; width: auto; display: block; }
+
+.flaks-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Dropdown de rubros */
+.flaks-dropdown { position: relative; }
+
+.flaks-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e8e4f5;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.flaks-dropdown-toggle:hover,
+.flaks-dropdown.is-open .flaks-dropdown-toggle {
+  border-color: var(--flaks-green);
+  background: rgba(0, 255, 127, 0.12);
+  color: var(--flaks-green);
+}
+.flaks-dropdown-toggle svg { transition: transform 0.2s ease; }
+.flaks-dropdown.is-open .flaks-dropdown-toggle svg { transform: rotate(180deg); }
+
+.flaks-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  background: #fff;
+  border: 1px solid var(--flaks-line);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px -18px rgba(10, 14, 12, 0.28);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+.flaks-dropdown.is-open .flaks-dropdown-menu { display: flex; }
+
+.flaks-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  color: var(--flaks-ink);
+  font-size: 0.86rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.flaks-dropdown-menu a:hover { background: #f2fbf6; }
+.flaks-dropdown-menu a.is-current {
+  color: var(--flaks-green-dark);
+  font-weight: 700;
+  background: rgba(0, 255, 127, 0.08);
+  pointer-events: none;
+}
+.flaks-dot {
+  width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+}
+
+/* Contactanos por WhatsApp (CTA de la barra FLAKS) */
+.flaks-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #25d366;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 7px 15px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.flaks-contact svg { flex-shrink: 0; }
+.flaks-contact:hover {
+  transform: translateY(-1px);
+  background: #1fb959;
+  box-shadow: 0 10px 22px -10px rgba(37, 211, 102, 0.6);
+}
+
+/* ---------- Flotante "volver a todas las demos" ---------- */
+/* La animación de flotado vive en el SPAN interno (no en el link) para que el
+   hover del link pueda usar su propia transición de transform sin pisarse con
+   la animación infinita. */
+.flaks-float-back {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 900;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 100px;
+  background: #ffffff;
+  box-shadow: 0 14px 32px -14px rgba(10, 14, 12, 0.35);
+  border: 1px solid rgba(10, 14, 12, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.flaks-float-back:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -16px rgba(10, 14, 12, 0.4);
+}
+
+.flaks-float-back-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  color: var(--flaks-ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  animation: flaks-float-bob 3.2s ease-in-out infinite;
+}
+
+.flaks-float-back-inner svg { flex-shrink: 0; }
+
+@keyframes flaks-float-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ---------- WhatsApp flotante (margen derecho, centrado vertical) ---------- */
+.flaks-wa-float {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 950;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.flaks-wa-bubble {
+  position: relative;
+  background: #ffffff;
+  color: var(--flaks-ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 12px 18px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 14px 32px -14px rgba(10, 14, 12, 0.35);
+  border: 1px solid rgba(10, 14, 12, 0.06);
+  opacity: 0;
+  transform: translateX(14px) scale(0.92);
+  animation: flaks-wa-bubble-in 0.5s ease 1.1s forwards;
+}
+
+.flaks-wa-bubble-hover { display: none; }
+.flaks-wa-float:hover .flaks-wa-bubble-default { display: none; }
+.flaks-wa-float:hover .flaks-wa-bubble-hover { display: inline; }
+.flaks-wa-float:hover .flaks-wa-bubble { border-color: #25d366; }
+
+@keyframes flaks-wa-bubble-in {
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.flaks-wa-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14px 30px -12px rgba(37, 211, 102, 0.65);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.flaks-wa-float:hover .flaks-wa-icon {
+  transform: scale(1.08);
+  background: #1fb959;
+}
+.flaks-wa-icon svg { position: relative; z-index: 1; }
+
+.flaks-wa-icon::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: flaks-wa-pulse 2.6s ease-out infinite;
+}
+
+@keyframes flaks-wa-pulse {
+  0% { transform: scale(0.85); opacity: 0.55; }
+  75%, 100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .flaks-bar { padding: 9px 14px; }
+  .flaks-dropdown-toggle span.flaks-label-full { display: none; }
+  .flaks-contact span.flaks-label-full { display: none; }
+  .flaks-contact { padding: 8px 11px; }
+  .flaks-float-back { left: 14px; bottom: 14px; }
+  .flaks-float-back-inner { padding: 11px 16px; font-size: 0.78rem; }
+
+  .flaks-wa-float { right: 12px; gap: 8px; }
+  .flaks-wa-bubble {
+    font-size: 0.74rem;
+    padding: 9px 13px;
+    white-space: normal;
+    max-width: 148px;
+    line-height: 1.25;
+    text-align: right;
+  }
+  .flaks-wa-icon { width: 46px; height: 46px; }
+  .flaks-wa-icon svg { width: 24px; height: 24px; }
+}

@@ -1,0 +1,267 @@
+/* ==========================================================================
+   GRANO — Lucas Beltrán, Fotógrafo
+   Disruptiva y excéntrica pero minimalista: blanco y negro puro, tipografía
+   display gigante, grilla rota tipo editorial, un único acento "que choca"
+   (verde lima ácido) usado con cuentagotas.
+   ========================================================================== */
+
+:root {
+  --ink: #0a0a0a;
+  --paper: #f7f6f2;
+  --gray: #8a8a85;
+  --line: #dcdad2;
+  --acid: #d4ff3f;
+
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.section { padding: 90px 40px; max-width: 1320px; margin: 0 auto; }
+.section-index {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin: 0 0 40px;
+}
+
+.accent { color: var(--ink); background: var(--acid); padding: 0 4px; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: static;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.nav-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 22px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo { font-family: var(--font-display); font-size: 1.7rem; letter-spacing: 0.02em; }
+.logo .dot, .hero-title .accent, .contacto-title .accent { color: var(--acid); background: none; padding: 0; }
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.nav-cta {
+  border: 1px solid var(--ink);
+  padding: 8px 16px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.nav-cta:hover { background: var(--ink); color: var(--paper); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 50px 40px 0;
+  display: grid;
+  grid-template-columns: 60px 1fr 300px;
+  gap: 10px 34px;
+}
+.hero-index {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gray);
+  padding-top: 12px;
+}
+.hero-title {
+  grid-column: 2 / 3;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 10vw, 8.2rem);
+  line-height: 0.86;
+  letter-spacing: 0.005em;
+  margin: 0;
+}
+.hero-side {
+  grid-column: 3 / 4;
+  padding-top: 18px;
+}
+.hero-lead { font-size: 0.92rem; color: #3a3a37; margin: 0 0 22px; max-width: 32ch; }
+.hero-img {
+  grid-column: 2 / 4;
+  margin: 40px 0 0 0;
+  height: 46vh;
+  min-height: 320px;
+  background-size: cover;
+  background-position: center 20%;
+  filter: grayscale(1) contrast(1.05);
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 14px 26px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-primary:hover { background: var(--acid); color: var(--ink); }
+.btn-primary.full { width: 100%; text-align: center; border: none; cursor: pointer; }
+
+/* ---------- Trabajos (masonry roto) ---------- */
+.masonry {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 130px;
+  gap: 14px;
+}
+.m-item {
+  position: relative;
+  grid-row: span 2;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1);
+  transition: filter 0.35s ease, transform 0.35s ease;
+  display: block;
+}
+.m-item:hover { filter: grayscale(0); transform: scale(0.98); }
+.m-tall { grid-row: span 3; }
+.m-wide { grid-column: span 2; }
+.m-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.m-item:hover .m-tag { opacity: 1; transform: translateY(0); }
+
+/* ---------- Servicios ---------- */
+.lista-servicios { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.lista-servicios li {
+  display: grid;
+  grid-template-columns: 60px 200px 1fr;
+  align-items: baseline;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease;
+}
+.lista-servicios li:hover { background: rgba(212, 255, 63, 0.15); }
+.ls-num { font-family: var(--font-mono); color: var(--gray); font-size: 0.85rem; }
+.ls-name { font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.01em; }
+.ls-desc { color: #3a3a37; font-size: 0.9rem; }
+
+/* ---------- Precios ---------- */
+.lista-precios { display: flex; flex-direction: column; }
+.lp-item { padding: 30px 0; border-top: 1px solid var(--line); }
+.lista-precios .lp-item:last-child { border-bottom: 1px solid var(--line); }
+.lp-featured { background: var(--ink); color: var(--paper); padding: 30px 24px; border-top-color: var(--ink); }
+.lp-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+.lp-name { font-family: var(--font-display); font-size: 1.7rem; }
+.lp-price { font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; }
+.lp-desc { margin: 0; font-size: 0.88rem; color: inherit; opacity: 0.75; max-width: 50ch; }
+
+/* ---------- Testimonios ---------- */
+.quote-grande {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.25;
+  margin: 0 0 50px;
+  max-width: 26ch;
+  letter-spacing: 0.005em;
+}
+.quote-grande footer {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--gray);
+  margin-top: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ---------- Contacto ---------- */
+.contacto { background: var(--ink); color: var(--paper); }
+.contacto .section-index { color: #8a8a85; }
+.contacto-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  margin: 0 0 50px;
+}
+.contacto-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; }
+.form { display: flex; flex-direction: column; gap: 18px; }
+.form label { display: flex; flex-direction: column; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; gap: 8px; color: #cfcfc8; }
+.form input, .form textarea {
+  font-family: var(--font-mono); font-size: 0.95rem; padding: 12px 14px;
+  border: 1px solid #333; background: #151515; color: var(--paper); resize: vertical;
+}
+.form input:focus, .form textarea:focus { outline: 1px solid var(--acid); }
+.form-note { font-size: 0.72rem; color: #6b6b66; margin: 0; }
+.contacto-datos p { margin: 10px 0; font-size: 0.9rem; color: #cfcfc8; }
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 36px 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.footer p { font-size: 0.76rem; color: var(--gray); margin: 0; }
+.footer-credit a { color: var(--ink); text-decoration: underline; }
+
+/* ---------- Scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 40px 1fr; padding: 30px 24px 0; }
+  .hero-title { grid-column: 2 / 3; font-size: clamp(2.6rem, 12vw, 5rem); }
+  .hero-side { grid-column: 1 / 3; padding-top: 24px; }
+  .hero-img { grid-column: 1 / 3; height: 38vh; }
+  .section { padding: 60px 24px; }
+  .masonry { grid-template-columns: repeat(2, 1fr); }
+  .m-wide { grid-column: span 2; }
+  .lista-servicios li { grid-template-columns: 40px 1fr; }
+  .ls-desc { grid-column: 2 / 3; }
+  .contacto-grid { grid-template-columns: 1fr; }
+  .nav-inner { padding: 18px 24px; }
+  .footer { padding: 28px 24px; }
+}
+@media (max-width: 560px) {
+  .nav-inner { flex-wrap: wrap; row-gap: 10px; }
+  .nav-links {
+    width: 100%;
+    gap: 14px;
+    font-size: 0.7rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { white-space: nowrap; flex-shrink: 0; }
+}
