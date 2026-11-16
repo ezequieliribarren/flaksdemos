@@ -61,7 +61,7 @@ h1,h2,h3,.logo{font-family:'Oswald',sans-serif;letter-spacing:.01em}
 .card{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
 .card:hover{box-shadow:0 10px 28px rgba(12,54,52,.14);transform:translateY(-3px);border-color:var(--teal)}
 .card-img{position:relative;background:#fff;aspect-ratio:1/1;overflow:hidden}
-.card-img img{width:100%;height:100%;object-fit:cover}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:8px}
 .badge{position:absolute;top:10px;left:10px;z-index:1;background:var(--ink);color:#fff;font-size:.68rem;padding:4px 9px;border-radius:3px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
 .badge.free{background:var(--teal)}
 .card-body{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
