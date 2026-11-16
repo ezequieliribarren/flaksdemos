@@ -29,7 +29,6 @@
   --tint-fotografo: #d4ff3f;
   --tint-eventos: #cba25a;
   --tint-viajes: #0f9b8e;
-  --tint-distriman: #049f98;
   --tint-psicologia: #c9a0a0;
 }
 
@@ -374,7 +373,6 @@ a { color: inherit; text-decoration: none; }
 .demo-card[data-tint="fotografo"]    { --tint: var(--tint-fotografo); }
 .demo-card[data-tint="eventos"]      { --tint: var(--tint-eventos); }
 .demo-card[data-tint="viajes"]       { --tint: var(--tint-viajes); }
-.demo-card[data-tint="distriman"]    { --tint: var(--tint-distriman); }
 .demo-card[data-tint="psicologia"]   { --tint: var(--tint-psicologia); }
 
 .demo-card:hover,
